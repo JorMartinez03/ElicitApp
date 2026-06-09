@@ -355,8 +355,10 @@ function generarEvaluacion(mensajes, casoId) {
   const respuestasIA = mensajes.filter(
     (m) => m.tipo !== "usuario" && m.tipo !== "sistema",
   );
+  const rolesValidos = Object.keys(caso.roles);
+  const totalRoles = rolesValidos.length;
   const rolesUsados = new Set(
-    mensajes.filter((m) => m.rol && m.rol !== "usuario").map((m) => m.rol),
+    mensajes.filter((m) => rolesValidos.includes(m.rol)).map((m) => m.rol),
   );
 
   const total = preguntasUsuario.length;
@@ -403,13 +405,13 @@ function generarEvaluacion(mensajes, casoId) {
   const detalladas = respuestasIA.filter((m) => m.tipo === "detallada").length;
   const evasivas = respuestasIA.filter((m) => m.tipo === "evasiva").length;
 
-  const coberturaRoles = rolesUsados.size;
+  const coberturaRoles = Math.min(rolesUsados.size, totalRoles);
   const puntajeBase = Math.min(
     100,
     Math.round(
       (abiertas / (total || 1)) * 35 +
         (detalladas / (respuestasIA.length || 1)) * 30 +
-        (coberturaRoles / 3) * 25 +
+        (coberturaRoles / totalRoles) * 25 +
         (total >= 5 ? 10 : total * 2),
     ),
   );
@@ -433,8 +435,8 @@ function generarEvaluacion(mensajes, casoId) {
           : "Excelente trabajo de elicitación. Has demostrado un dominio sólido de las técnicas de entrevista y cubrimiento de requerimientos.";
 
   const consejoRoles =
-    rolesUsados.size < 3
-      ? `Solo interactuaste con ${rolesUsados.size} de 3 roles disponibles. Entrevistar a todos los stakeholders te dará una visión más completa.`
+    rolesUsados.size < totalRoles
+      ? `Solo interactuaste con ${rolesUsados.size} de ${totalRoles} roles disponibles. Entrevistar a todos los stakeholders te dará una visión más completa.`
       : "Interactuaste con todos los roles disponibles. Bien.";
 
   const temasCubiertos = Math.min(

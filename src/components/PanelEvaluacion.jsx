@@ -191,7 +191,7 @@ export default function PanelEvaluacion({
                   Roles entrevistados.
                 </p>
                 <p className="text-lg font-bold text-slate-800">
-                  {estadisticas.rolesCubiertos} / 3
+                  {estadisticas.rolesCubiertos} / {Object.keys(caso.roles).length}
                 </p>
               </div>
               <div className="bg-slate-50 rounded-lg p-4">

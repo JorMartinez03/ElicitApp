@@ -216,22 +216,7 @@ function MensajeChat({ mensaje, roles }) {
         >
           {mensaje.texto}
         </div>
-        {mensaje.tipo === "evasiva" && !esUsuario && (
-          <p className="text-xs text-amber-500 mt-1">
-            ⚠️ Respuesta evasiva — intenta mejorar tu técnica de preguntas.
-          </p>
-        )}
-        {mensaje.tipo === "cerrada" && !esUsuario && (
-          <p className="text-xs text-amber-500 mt-1">
-            💡 Pregunta cerrada — las preguntas abiertas obtienen mejor
-            información.
-          </p>
-        )}
-        {mensaje.tipo === "detallada" && !esUsuario && (
-          <p className="text-xs text-emerald-500 mt-1">
-            ✅ Buena técnica — obtuviste información detallada.
-          </p>
-        )}
+
       </div>
     </div>
   );
