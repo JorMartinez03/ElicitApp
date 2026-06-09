@@ -1,4 +1,4 @@
-# Simulador Avanzado de Elicitación de Requerimientos 🚀
+# Simulador Avanzado de Elicitación de Requerimientos
 
 ## Descripción
 
